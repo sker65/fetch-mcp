@@ -1,16 +1,23 @@
 # Fetch MCP Server
 
-![fetch mcp logo](logo.jpg)
-
-This MCP server provides functionality to fetch web content in various formats, including HTML, JSON, plain text, and Markdown.
+This MCP server provides functionality to fetch web content in various formats, including HTML, JSON, plain text, and Markdown. It has been refactored to use the StreamableHttp Transport from the Model Context Protocol (MCP) SDK.
 
 <a href="https://glama.ai/mcp/servers/nu09wf23ao">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/nu09wf23ao/badge" alt="Fetch Server MCP server" />
 </a>
 
-## Components
+## Features
 
-### Tools
+- Implements MCP server with StreamableHttp Transport
+- Provides multiple content fetching tools
+- Containerized for easy deployment
+- RESTful API endpoints for MCP interactions
+- Fetches web content using modern fetch API
+- Supports custom headers for requests
+- Uses JSDOM for HTML parsing and text extraction
+- Uses TurndownService for HTML to Markdown conversion
+
+## Supported Tools
 
 - **fetch_html**
   - Fetch a website and return the content as HTML
@@ -31,7 +38,7 @@ This MCP server provides functionality to fetch web content in various formats, 
   - Input:
     - `url` (string, required): URL of the website to fetch
     - `headers` (object, optional): Custom headers to include in the request
-  - Returns the text content of the webpage with HTML tags, scripts, and styles removed
+  - Returns the plain text content of the webpage with HTML tags, scripts, and styles removed
 
 - **fetch_markdown**
   - Fetch a website and return the content as Markdown
@@ -40,55 +47,52 @@ This MCP server provides functionality to fetch web content in various formats, 
     - `headers` (object, optional): Custom headers to include in the request
   - Returns the content of the webpage converted to Markdown format
 
-### Resources
+## Running with Docker
 
-This server does not provide any persistent resources. It's designed to fetch and transform web content on demand.
-
-## Getting started
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Build the server: `npm run build`
-
-### Usage
-
-To use the server, you can run it directly:
+### Build the Docker image
 
 ```bash
-npm start
+docker build -t fetch-mcp .
 ```
 
-This will start the Fetch MCP Server running on stdio.
+### Run the Docker container
 
-### Usage with Desktop App
-
-To integrate this server with a desktop app, add the following to your app's server configuration:
-
-```json
-{
-  "mcpServers": {
-    "fetch": {
-      "command": "node",
-      "args": [
-        "{ABSOLUTE PATH TO FILE HERE}/dist/index.js"
-      ]
-    }
-  }
-}
+```bash
+docker run -p 3000:3000 fetch-mcp
 ```
 
-## Features
+The server will be available at http://localhost:3000 with the MCP endpoint at http://localhost:3000/mcp.
 
-- Fetches web content using modern fetch API
-- Supports custom headers for requests
-- Provides content in multiple formats: HTML, JSON, plain text, and Markdown
-- Uses JSDOM for HTML parsing and text extraction
-- Uses TurndownService for HTML to Markdown conversion
+## Environment Variables
+
+- `PORT`: Port number for the server to listen on (default: 3000)
+- `NODE_ENV`: Environment mode (development/production)
+
+## API Endpoints
+
+- `GET /`: Health check endpoint
+- `POST /mcp`: Main MCP endpoint for tool invocation
+- `GET /mcp`: Alternative MCP endpoint for GET requests
 
 ## Development
 
-- Run `npm run dev` to start the TypeScript compiler in watch mode
-- Use `npm test` to run the test suite
+```bash
+# Install dependencies
+pnpm install
+
+# Build the project
+pnpm run build
+
+# Run the server
+pnpm start
+```
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `pnpm install`
+3. Build the server: `pnpm run build`
+4. Start the server: `pnpm start`
 
 ## License
 
