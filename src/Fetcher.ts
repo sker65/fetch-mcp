@@ -2,6 +2,7 @@ import { JSDOM } from "jsdom";
 import TurndownService from "turndown";
 import is_ip_private from "private-ip";
 import { RequestPayload } from "./types.js";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
 export class Fetcher {
   private static applyLengthLimits(text: string, maxLength: number, startIndex: number): string {
@@ -43,7 +44,7 @@ export class Fetcher {
     }
   }
 
-  static async html(requestPayload: RequestPayload) {
+  static async html(requestPayload: RequestPayload): Promise<CallToolResult> {
     try {
       const response = await this._fetch(requestPayload);
       let html = await response.text();
@@ -64,7 +65,7 @@ export class Fetcher {
     }
   }
 
-  static async json(requestPayload: RequestPayload) {
+  static async json(requestPayload: RequestPayload): Promise<CallToolResult> {
     try {
       const response = await this._fetch(requestPayload);
       const json = await response.json();
@@ -89,7 +90,7 @@ export class Fetcher {
     }
   }
 
-  static async txt(requestPayload: RequestPayload) {
+  static async txt(requestPayload: RequestPayload): Promise<CallToolResult> {
     try {
       const response = await this._fetch(requestPayload);
       const html = await response.text();
@@ -124,7 +125,7 @@ export class Fetcher {
     }
   }
 
-  static async markdown(requestPayload: RequestPayload) {
+  static async markdown(requestPayload: RequestPayload): Promise<CallToolResult> {
     try {
       const response = await this._fetch(requestPayload);
       const html = await response.text();
