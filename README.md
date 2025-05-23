@@ -2,6 +2,19 @@
 
 This MCP server provides functionality to fetch web content in various formats, including HTML, JSON, plain text, and Markdown. It has been refactored to use the StreamableHttp Transport from the Model Context Protocol (MCP) SDK.
 
+## Acknowledgements
+
+This project is based on the original work by [Glama AI](https://glama.ai/), who created the initial Fetch MCP server. Special thanks to the original author for establishing the foundation of this useful tool.
+
+## What's New
+
+This implementation enhances the original Fetch MCP server by implementing remote access through the StreamableHttp Transport layer. The key changes include:
+
+- Replaced the original stdio-based transport with StreamableHttp Transport
+- Added RESTful API endpoints for HTTP-based MCP interactions
+- Containerized the application for easier deployment and scaling
+- Maintained full compatibility with all original tool functions
+
 <a href="https://glama.ai/mcp/servers/nu09wf23ao">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/nu09wf23ao/badge" alt="Fetch Server MCP server" />
 </a>
